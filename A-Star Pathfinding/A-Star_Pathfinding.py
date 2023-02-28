@@ -55,31 +55,31 @@ class Node:
     
     # Method that resets the color of a node to white.
     def reset(self):
-        self.color == colorWhite
+        self.color = colorWhite
 
     # Method that marks a node as closed.
     def make_closed(self):
-        self.color == colorRed
+        self.color = colorRed
 
     # Method that marks a node as open.
     def make_open(self):
-        self.color == colorGreen
+        self.color = colorGreen
 
     # Method that marks a node as an obstacle.
     def make_obstacle(self):
-        self.color == colorBlack
+        self.color = colorBlack
 
     # Method that marks a node as the starting point.
     def make_start(self):
-        self.color == colorOrange
+        self.color = colorOrange
 
     # Method that marks a node as the ending point.
     def make_end(self):
-        self.color == colorTurquoise
+        self.color = colorTurquoise
 
     # Method that marks a node as a point on our path.
     def make_path(self):
-        self.color == colorPurple
+        self.color = colorPurple
 
     # Method that draws our grid.
     def draw(self, win):
@@ -138,3 +138,53 @@ def get_clicked_position(pos, rows, width):
 
     return row, col
 
+def main(win, width):
+    ROWS = 50
+    grid = make_grid(ROWS, width)
+
+    start = None
+    end = None
+
+    run = True
+    started = False
+
+    while run:
+        draw(win, grid, ROWS, width)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            
+            if started:
+                continue
+
+            # Left mouse button clicked.
+            if pygame.mouse.get_pressed()[0]:
+                pos = pygame.mouse.get_pos()
+                row, col = get_clicked_position(pos, ROWS, width)
+                node = grid[row][col]
+                if not start and node != end:
+                    start = node
+                    start.make_start()
+
+                elif not end and node != start:
+                    end = node
+                    end.make_end()
+
+                elif node != end and node != start:
+                    node.make_obstacle()
+
+            elif pygame.mouse.get_pressed()[2]: # Right mouse button clicked.
+                pos = pygame.mouse.get_pos()
+                row, col = get_clicked_position(pos, ROWS, width)
+                node = grid[row][col]
+                node.reset()
+                if node == start:
+                    start = None
+                elif node == end:
+                    node = None
+
+            
+
+    pygame.quit()
+
+main(WIN, windowWidth)
