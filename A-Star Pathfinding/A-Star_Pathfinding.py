@@ -86,7 +86,19 @@ class Node:
         pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.width))
 
     def update_neighbors(self, grid):
-        pass
+        self.neighbors = []
+        # Checking if node below is neighbor.
+        if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].is_obstacle():
+            self.neighbors.append(grid[self.row + 1][self.col])
+        # Checking if node above is neighbor.
+        if self.row > 0 and not grid[self.row - 1][self.col].is_obstacle():
+            self.neighbors.append(grid[self.row - 1][self.col])
+        # Checking if node to the right is neighbor.
+        if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].is_obstacle():
+            self.neighbors.append(grid[self.row][self.col + 1])
+        # Checking if node to the left is neighbor.
+        if self.col > 0 and not grid[self.row][self.col - 1].is_obstacle():
+            self.neighbors.append(grid[self.row][self.col - 1])
 
     def __lt__(self, other):
         return False
@@ -108,6 +120,61 @@ def make_grid(rows, width):
             grid[i].append(node)
 
     return grid
+
+# Creates our path.
+def create_path(came_from, current, draw):
+    while current in came_from:
+        current = came_from[current]
+        current.make_path()
+        draw()
+
+# Method that actually finds our path.
+def run_pathfinder(draw, grid, start, end):
+    count = 0
+    open_set = PriorityQueue()
+    open_set.put((0, count, start))
+    came_from = {}
+    g_value = {node: float("inf") for row in grid for node in row}
+    g_value[start] = 0
+    f_value = {node: float("inf") for row in grid for node in row}
+    f_value[start] = h_function(start.get_position(), end.get_position())
+
+    open_set_hash = {start}
+
+    while not open_set.empty():
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+        
+        current = open_set.get()[2]
+        open_set_hash.remove(current)
+
+        # Draws our path.
+        if current == end:
+            create_path(came_from, end, draw)
+            start.make_start()
+            end.make_end()
+            return True
+        
+        for neighbor in current.neighbors:
+            temp_g_value = g_value[current] + 1
+
+            if temp_g_value < g_value[neighbor]:
+                came_from[neighbor] = current
+                g_value[neighbor] = temp_g_value
+                f_value[neighbor] = temp_g_value + h_function(neighbor.get_position(), end.get_position())
+                if neighbor not in open_set_hash:
+                    count += 1
+                    open_set.put((f_value[neighbor], count, neighbor))
+                    open_set_hash.add(neighbor)
+                    neighbor.make_open()
+
+        draw()
+
+        if current != start:
+            current.make_closed()
+
+    return False
 
 # Method that makes our grid lines.
 def draw_grid(win, rows, width):
@@ -154,9 +221,6 @@ def main(win, width):
             if event.type == pygame.QUIT:
                 run = False
             
-            if started:
-                continue
-
             # Left mouse button clicked.
             if pygame.mouse.get_pressed()[0]:
                 pos = pygame.mouse.get_pos()
@@ -183,7 +247,18 @@ def main(win, width):
                 elif node == end:
                     node = None
 
-            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and start and end:
+                    for row in grid:
+                        for node in row:
+                            node.update_neighbors(grid)
+
+                    run_pathfinder(lambda: draw(win, grid, ROWS, width), grid, start, end)
+
+                if event.key == pygame.K_c:
+                    start = None
+                    end = None
+                    grid = make_grid(ROWS, width)
 
     pygame.quit()
 
