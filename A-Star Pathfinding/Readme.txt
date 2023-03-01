@@ -1,0 +1,1 @@
+A fairly straightforward pathfinding algorithm done in python using the pygame modules. We utilize Manhatten Distance to calculate distance between our start and end points, then work using that to trace back after finding the most effecient route between said points.
