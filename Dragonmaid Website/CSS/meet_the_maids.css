@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: black;
+    color: white;
+    font-family: 'Merriweather', serif;
+}
+
+.main_container {
+    padding: 1em;
+    width: 48.5%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid white;
+    border-radius: 2em;
+}
+
+.main_content {
+    padding: 1em;
+    border: 2px solid white;
+    border-radius: 1em;
+    overflow: hidden;
+}
+
+.page_title {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;   
+    position: relative; 
+    padding: 1em;
+}
+
+
+a {
+    color: #be93d4;
+}
+
+a:hover {
+    color: #a1045a;
+}
+
+.introduction {
+    padding: 1em;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.sub_heading {
+    margin-bottom: 0.1em;
+    padding-top: 0.2em;
+    padding-bottom: 0.5em;
+}
+
+.left_img {
+    padding-right: 0.5em;
+    padding-top: 0.5em;
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+    border-radius: 1em;
+    float: left;
+}
+
+.right_img {
+    padding-left: 0.5em;
+    padding-top: 0.5em;
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+    border-radius: 1em;
+    float: right;
+}
+
+.left_text {
+    padding-right: 0.5em;
+    padding-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.right_text {
+    padding-left: 0.5em;
+    padding-top: 0.5em;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    
+}
+
+#left_bg {
+    padding: 0px;
+    display: block;
+    float: left;
+    position: fixed;
+    left: 0;
+    width: 24.5%;
+    height: 50em;
+    object-fit: cover;
+}
+
+#right_bg {
+    padding: 0px;
+    display: block;
+    float: right;
+    position: fixed;
+    right: 0;
+    width: 24.5%;
+    height: 50em;
+    object-fit: cover;
+}
+
+#my_col_left {
+    float: left;
+    width: 25.75;
+}
+
+.title {
+    display: inline;
+}
