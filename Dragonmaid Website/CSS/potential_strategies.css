@@ -28,12 +28,34 @@ html {
     border: 2px solid white;
     border-radius: 1em;
     overflow: hidden;
-    /* visibility: hidden; */
+    display: inline-block;
+    margin-top: 5.5em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 1em;
+    visibility: hidden;
 }
 
 .show_content {
     visibility: visible;
 }
+
+.sub_heading {
+    margin-bottom: 0.1em;
+    padding-top: 0.2em;
+    padding-bottom: 0.5em;
+}
+
+.explanation {
+    padding-left: 0.5em;
+    padding-top: 0.5em;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
 
 
 .page_title {
@@ -91,15 +113,6 @@ a {
     color: #be93d4;
 }
 
-
-.main_content {
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    padding: 1em;
-}
-
 #left_bg {
     padding: 0px;
     display: block;
@@ -120,4 +133,10 @@ a {
     width: 24.5%;
     height: 50em;
     object-fit: cover;
+}
+
+.emphasis {
+    color: #b30860;
+    font-weight: bold;
+    font-size: medium;
 }
