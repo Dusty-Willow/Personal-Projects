@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-xl-12">
+    <app-card cardTitle="Data Table" [options]="false" blockClass="table-border-style">
+      <div class="col-sm-12">
+        <div class="card">
+            <ngb-accordion [closeOthers]="true" activeIds="static-1">
+              <ngb-panel id="static-1">
+                <ng-template ngbPanelTitle>
+                  <h5>Filters</h5>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div class="form-group row">
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" placeholder="Filter by entry" id="inlineFromEntry">
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control col-sm-9" placeholder="Filter by ID" id="inlineFromID">
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" placeholder="Filter by Post Content">
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" placeholder="Filter by Email">  
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </div>
+        </div>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr class="table-primary">
+              <th>Entry</th>
+              <th>ID</th>
+              <th>Post</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of data$ | async">
+              <td>{{data.id}}</td>
+              <td>{{data.postId}}</td>
+              <td>{{data.name}}</td>
+              <td>{{data.email}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+
+</div>
