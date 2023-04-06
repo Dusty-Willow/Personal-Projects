@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MyDataService } from './my-data.service';
 import { ActivatedRoute } from '@angular/router';
-import { pluck } from 'rxjs';
-import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { CardModule } from 'src/app/theme/shared/components';
+import { FormControl } from '@angular/forms';
+import { MydatatableComponent } from './myDataTable/mydatatable/mydatatable.component';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-my-data',
@@ -12,11 +12,10 @@ import { CardModule } from 'src/app/theme/shared/components';
 })
 export class MyDataComponent implements OnInit {
 
-  data$ = this.myDataService.getData();
-
-  dataSegment$ = this.activatedRoute.data.pipe(
-    pluck('data')
-  )
+  idFilter = new FormControl("");
+  postFilter = new FormControl("");
+  nameFilter = new FormControl("");
+  emailFilter = new FormControl("");
 
   constructor(private myDataService: MyDataService, private activatedRoute: ActivatedRoute) {}
 

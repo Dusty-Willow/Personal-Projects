@@ -1,0 +1,20 @@
+<div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-primary">
+          <th>Entry</th>
+          <th>ID</th>
+          <th>Post</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of data$ | async | filter : entryID">
+          <td>{{data.id}}</td>
+          <td>{{data.postId}}</td>
+          <td>{{data.name}}</td>
+          <td>{{data.email}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

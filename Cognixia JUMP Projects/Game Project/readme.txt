@@ -1,0 +1,1 @@
+Simple game application developed using Python, as well as the Pygame Module for GUI. The application uses a JSON file as a means of keeping track of player score for each type of game being played.

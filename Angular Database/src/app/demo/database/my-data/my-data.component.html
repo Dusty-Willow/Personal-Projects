@@ -11,16 +11,16 @@
                 <ng-template ngbPanelContent>
                   <div class="form-group row">
                     <div class="col-sm-3">
-                      <input type="text" class="form-control" placeholder="Filter by entry" id="inlineFromEntry">
+                      <input type="text" class="form-control" placeholder="Filter by entry" id="inlineFromEntry" formControl="idFilter">
                     </div>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control col-sm-9" placeholder="Filter by ID" id="inlineFromID">
+                      <input type="text" class="form-control col-sm-9" placeholder="Filter by ID" id="inlineFromID" formControl="postFilter">
                     </div>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control" placeholder="Filter by Post Content">
+                      <input type="text" class="form-control" placeholder="Filter by Post Content" formControl="nameFilter">
                     </div>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control" placeholder="Filter by Email">  
+                      <input type="text" class="form-control" placeholder="Filter by Email" formControl="emailFilter">  
                     </div>
                   </div>
                 </ng-template>
@@ -28,27 +28,9 @@
             </ngb-accordion>
           </div>
         </div>
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr class="table-primary">
-              <th>Entry</th>
-              <th>ID</th>
-              <th>Post</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of data$ | async">
-              <td>{{data.id}}</td>
-              <td>{{data.postId}}</td>
-              <td>{{data.name}}</td>
-              <td>{{data.email}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <!-- <div *ngIf="data$ | async as data"> -->
+          <app-mydatatable [entryID]="idFilter.value" [postID]="postFilter.value" [name]="emailFilter.value" [email]="nameFilter.value"></app-mydatatable>
+        <!-- </div> -->
     </app-card>
   </div>
-
 </div>
