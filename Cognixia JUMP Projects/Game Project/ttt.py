@@ -10,11 +10,13 @@ losses = 0
 ties = 0
 prompt = ""
 gameWon = False
-state = ""
+state = "player"
 winner = None
+winAchieved = None
 
 pygame.init()
-myBoard = [["IGNORE"]*3, ["IGNORE"]*3, ["IGNORE"]*3]
+dummyBoard = ["IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE"]
+myBoard = ["IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE"]
 cpuMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 playerMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 xoFont = pygame.font.SysFont('arial', 80)
@@ -24,131 +26,170 @@ def playerMove(mouse, cellPositions):
     global state, myBoard, cpuMoves, playerMoves
     
     if (state == "player"):
-        if ((cellPositions['TOPLEFT'][0] <= mouse[0] <= (cellPositions['TOPLEFT'][0] + 90)) and (cellPositions['TOPLEFT'][1] <= mouse[1] <= (cellPositions['TOPLEFT'][1] + 90)) and myBoard[0][0] == "IGNORE"):
-            placeXO("X", 0, 0)
+        if ((cellPositions['TOPLEFT'][0] <= mouse[0] <= (cellPositions['TOPLEFT'][0] + 90)) and (cellPositions['TOPLEFT'][1] <= mouse[1] <= (cellPositions['TOPLEFT'][1] + 90)) and myBoard[0] == "IGNORE"):
+            placeXO("X", 0)
             cpuMoves.remove(1)
             playerMoves.remove(1)
-        elif ((cellPositions['TOPMID'][0] <= mouse[0] <= (cellPositions['TOPMID'][0] + 90)) and (cellPositions['TOPMID'][1] <= mouse[1] <= (cellPositions['TOPMID'][1] + 90)) and myBoard[1][0] == "IGNORE"):
-            placeXO("X", 0, 1)
+            state = "cpu"
+        elif ((cellPositions['TOPMID'][0] <= mouse[0] <= (cellPositions['TOPMID'][0] + 90)) and (cellPositions['TOPMID'][1] <= mouse[1] <= (cellPositions['TOPMID'][1] + 90)) and myBoard[1] == "IGNORE"):
+            placeXO("X", 1)
             cpuMoves.remove(2)
             playerMoves.remove(2)
-        elif ((cellPositions['TOPRIGHT'][0] <= mouse[0] <= (cellPositions['TOPRIGHT'][0] + 90)) and (cellPositions['TOPRIGHT'][1] <= mouse[1] <= (cellPositions['TOPRIGHT'][1] + 90)) and myBoard[2][0] == "IGNORE"):
-            placeXO("X", 0, 2)
+            state = "cpu"
+        elif ((cellPositions['TOPRIGHT'][0] <= mouse[0] <= (cellPositions['TOPRIGHT'][0] + 90)) and (cellPositions['TOPRIGHT'][1] <= mouse[1] <= (cellPositions['TOPRIGHT'][1] + 90)) and myBoard[2] == "IGNORE"):
+            placeXO("X", 2)
             cpuMoves.remove(3)
             playerMoves.remove(3)
-        elif ((cellPositions['MIDLEFT'][0] <= mouse[0] <= (cellPositions['MIDLEFT'][0] + 90)) and (cellPositions['MIDLEFT'][1] <= mouse[1] <= (cellPositions['MIDLEFT'][1] + 90)) and myBoard[0][1] == "IGNORE"):
-            placeXO("X", 1, 0)
+            state = "cpu"
+        elif ((cellPositions['MIDLEFT'][0] <= mouse[0] <= (cellPositions['MIDLEFT'][0] + 90)) and (cellPositions['MIDLEFT'][1] <= mouse[1] <= (cellPositions['MIDLEFT'][1] + 90)) and myBoard[3] == "IGNORE"):
+            placeXO("X", 3)
             cpuMoves.remove(4)
             playerMoves.remove(4)
-        elif ((cellPositions['MIDMID'][0] <= mouse[0] <= (cellPositions['MIDMID'][0] + 90)) and (cellPositions['MIDMID'][1] <= mouse[1] <= (cellPositions['MIDMID'][1] + 90)) and myBoard[1][1] == "IGNORE"):
-            placeXO("X", 1, 1)
+            state = "cpu"
+        elif ((cellPositions['MIDMID'][0] <= mouse[0] <= (cellPositions['MIDMID'][0] + 90)) and (cellPositions['MIDMID'][1] <= mouse[1] <= (cellPositions['MIDMID'][1] + 90)) and myBoard[4] == "IGNORE"):
+            placeXO("X", 4)
             cpuMoves.remove(5)
             playerMoves.remove(5)
-        elif ((cellPositions['MIDRIGHT'][0] <= mouse[0] <= (cellPositions['MIDRIGHT'][0] + 90)) and (cellPositions['MIDRIGHT'][1] <= mouse[1] <= (cellPositions['MIDRIGHT'][1] + 90)) and myBoard[2][2] == "IGNORE"):
-            placeXO("X", 1, 2)
+            state = "cpu"
+        elif ((cellPositions['MIDRIGHT'][0] <= mouse[0] <= (cellPositions['MIDRIGHT'][0] + 90)) and (cellPositions['MIDRIGHT'][1] <= mouse[1] <= (cellPositions['MIDRIGHT'][1] + 90)) and myBoard[5] == "IGNORE"):
+            placeXO("X", 5)
             cpuMoves.remove(6)
             playerMoves.remove(6)
-        elif ((cellPositions['BOTLEFT'][0] <= mouse[0] <= (cellPositions['BOTLEFT'][0] + 90)) and (cellPositions['BOTLEFT'][1] <= mouse[1] <= (cellPositions['BOTLEFT'][1] + 90)) and myBoard[0][2] == "IGNORE"):
-            placeXO("X", 2, 0)
+            state = "cpu"
+        elif ((cellPositions['BOTLEFT'][0] <= mouse[0] <= (cellPositions['BOTLEFT'][0] + 90)) and (cellPositions['BOTLEFT'][1] <= mouse[1] <= (cellPositions['BOTLEFT'][1] + 90)) and myBoard[6] == "IGNORE"):
+            placeXO("X", 6)
             cpuMoves.remove(7)
             playerMoves.remove(7)
-        elif ((cellPositions['BOTMID'][0] <= mouse[0] <= (cellPositions['BOTMID'][0] + 90)) and (cellPositions['BOTMID'][1] <= mouse[1] <= (cellPositions['BOTMID'][1] + 90)) and myBoard[1][2] == "IGNORE"):
-            placeXO("X", 2, 1)
+            state = "cpu"
+        elif ((cellPositions['BOTMID'][0] <= mouse[0] <= (cellPositions['BOTMID'][0] + 90)) and (cellPositions['BOTMID'][1] <= mouse[1] <= (cellPositions['BOTMID'][1] + 90)) and myBoard[7] == "IGNORE"):
+            placeXO("X", 7)
             cpuMoves.remove(8)
             playerMoves.remove(8)
-        elif ((cellPositions['BOTRIGHT'][0] <= mouse[0] <= (cellPositions['BOTRIGHT'][0] + 90)) and (cellPositions['BOTRIGHT'][1] <= mouse[1] <= (cellPositions['BOTRIGHT'][1] + 90)) and myBoard[2][2] == "IGNORE"):
-            placeXO("X", 2, 2)
+            state = "cpu"
+        elif ((cellPositions['BOTRIGHT'][0] <= mouse[0] <= (cellPositions['BOTRIGHT'][0] + 90)) and (cellPositions['BOTRIGHT'][1] <= mouse[1] <= (cellPositions['BOTRIGHT'][1] + 90)) and myBoard[8] == "IGNORE"):
+            placeXO("X", 8)
             cpuMoves.remove(9)
             playerMoves.remove(9)
+            state = "cpu"
 
-    print(myBoard)
-    state = "cpu"
-
-def cpuMove(mouse, cellPositions):
+def cpuMove():
     global state, cpuMoves
-    time.sleep(2)
+    # time.sleep(2)
     cpuChoice = random.choice(cpuMoves)
 
     if (state == "cpu"):
         match cpuChoice:
             case 1:
-                placeXO("O", 0, 0)
+                placeXO("O", 0)
                 cpuMoves.remove(1)
                 playerMoves.remove(1)
             case 2:
-                placeXO("O", 1, 0)
+                placeXO("O", 1)
                 cpuMoves.remove(2)
                 playerMoves.remove(2)
             case 3:
-                placeXO("O", 2, 0)
+                placeXO("O", 2)
                 cpuMoves.remove(3)
                 playerMoves.remove(3)
             case 4:
-                placeXO("O", 0, 1)
+                placeXO("O", 3)
                 cpuMoves.remove(4)
                 playerMoves.remove(4)
             case 5:
-                placeXO("O", 1, 1)
+                placeXO("O", 4)
                 cpuMoves.remove(5)
                 playerMoves.remove(5)
             case 6:
-                placeXO("O", 2, 1)
+                placeXO("O", 5)
                 cpuMoves.remove(6)
                 playerMoves.remove(6)
             case 7:
-                placeXO("O", 0, 2)
+                placeXO("O", 6)
                 cpuMoves.remove(7)
                 playerMoves.remove(7)
             case 8:
-                placeXO("O", 1, 2)
+                placeXO("O", 7)
                 cpuMoves.remove(8)
                 playerMoves.remove(8)
             case 9:
-                placeXO("O", 2, 2)
+                placeXO("O", 8)
                 cpuMoves.remove(9)
                 playerMoves.remove(9)
     
     state = "player"
 
-def winCheck(screen, cellPos):
-    global myBoard, winner
-    temp = None
+def winCheck(screen, screenWidth, screenHeight):
+    global dummyBoard, winner, winAchieved
+    RED = (255, 0, 0)
+
     # Check Row Victory
-    for row in range(0, 3):
-        if((myBoard[row][0] == myBoard[row][1] == myBoard[row][2]) and not (myBoard[row][0] == "IGNORE")):
-            winner = myBoard[row][0]
-            temp = row
-    
-    if (not (winner == None)):
-        match temp:
-            case 0:
-                pygame.draw.line(screen, (0, 0, 0), cellPos['TOPLEFT'], cellPos['TOPRIGHT'])
-            case 1:
-                pygame.draw.line(screen, (0, 0, 0), cellPos['MIDLEFT'], cellPos['MIDRIGHT'])
-            case 2:
-                pygame.draw.line(screen, (0, 0, 0), cellPos['BOTLEFT'], cellPos['BOTRIGHT'])
-    
+    for row in range(0, 9, 3):
+        if((dummyBoard[row] == dummyBoard[row + 1] == dummyBoard[row + 2]) and not (dummyBoard[row] == "IGNORE")):
+
+            if (dummyBoard[row] == "X"):
+                winner = "Player"
+            elif (dummyBoard[row] == "O"):
+                winner = "CPU"
+
+            match row:
+                case 0:
+                    pygame.draw.line(screen, RED, (120 - 50, screenHeight / 3 + 45), (500 + 140, screenHeight / 3 + 45), 7)
+                case 3:
+                    pygame.draw.line(screen, RED, (120 - 50, screenHeight / 3 + 150 + 45), (500 + 140, screenHeight / 3 + 150 + 45), 7)
+                case 6:
+                    pygame.draw.line(screen, RED, (120 - 50, screenHeight / 3 + 300 + 45), (500 + 140, screenHeight / 3 + 300 + 45), 7)        
+
     # Check Column Victory
     for col in range(0, 3):
-        if((myBoard[0][col] == myBoard[1][col] == myBoard[2][col]) and not (myBoard[0][col] == "IGNORE")):
-            winner = myBoard[0][col]
-            temp = row
+        if((dummyBoard[col] == dummyBoard[col + 3] == dummyBoard[col + 6]) and not (dummyBoard[col] == "IGNORE")):
+
+            if (dummyBoard[col] == "X"):
+                winner = "Player"
+            elif (dummyBoard[col] == "O"):
+                winner = "CPU"
+
+            match col:
+                case 0:
+                    pygame.draw.line(screen, RED, (120 + 45, screenHeight / 3 - 50), (120 + 45, screenHeight / 3 + 300 + 140), 7)
+                case 1:
+                    pygame.draw.line(screen, RED, (120 + 45 + 200, screenHeight / 3 - 50), (120 + 45 + 200, screenHeight / 3 + 300 + 140), 7)
+                case 2:
+                    pygame.draw.line(screen, RED, (120 + 45 + 380, screenHeight / 3 - 50), (120 + 45 + 380, screenHeight / 3 + 300 + 140), 7)        
+
+        if((dummyBoard[0] == dummyBoard[4] == dummyBoard[8]) and not (dummyBoard[0] == "IGNORE")):
+            
+            if (dummyBoard[0] == "X"):
+                winner = "Player"
+            elif (dummyBoard[0] == "O"):
+                winner = "CPU"
+
+            pygame.draw.line(screen, RED, (120 - 35, screenHeight / 3 - 30), (120 + 30 + 380 + 95, screenHeight / 3 + 300 + 110), 7)        
     
-    if (not winner == None):
-        match temp:
-            case 0:
-                pygame.draw.line(screen, (0, 0, 0), cellPos['TOPLEFT'], cellPos['BOTLEFT'])
-            case 1:
-                pygame.draw.line(screen, (0, 0, 0), cellPos['TOPMID'], cellPos['BOTMID'])
-            case 2:
-                pygame.draw.line(screen, (0, 0, 0), cellPos['TOPRIGHT'], cellPos['BOTRIGHT'])
+        if((dummyBoard[2] == dummyBoard[4] == dummyBoard[6]) and not (dummyBoard[2] == "IGNORE")):
+            
+            if (dummyBoard[2] == "X"):
+                winner = "Player"
+            elif (dummyBoard[2] == "O"):
+                winner = "CPU"
+
+            pygame.draw.line(screen, RED, (120 + 470 + 35, screenHeight / 3 - 30), (120 - 35, screenHeight / 3 + 300 + 110), 7)        
+
+def movesLeft():
+    if (bool(cpuMoves) == False and bool(playerMoves) == False and winner == None):
+        winner = "tie"
+
+def resetGame():
+    dummyBoard = ["IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE"]
+    myBoard = ["IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE"]
+    cpuMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    playerMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
+def placeXO(XO, position):
+    global myBoard, dummyBoard
 
-def placeXO(XO, boardRow, boardCol):
-    global myBoard
-
-    myBoard[boardCol][boardRow] = xoFont.render(XO, True, (0,0,0))
+    dummyBoard[position] = XO
+    myBoard[position] = xoFont.render(XO, True, (0,0,0))
 
 def saveScores():
     global wins, losses, ties
@@ -193,22 +234,19 @@ def drawGrid(screen, lineColor, screenWidth, screenHeight, cellColor, cellHover,
     pygame.draw.line(screen, lineColor, (80, screenHeight / 3 * 2 - 40 + 75), (screenWidth - 80, screenHeight / 3 * 2 - 40 + 75), 7)
 
     # Drawing cells
-    drawButton(screen, cellColor, cellHover, 120, screenHeight / 3, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[0][0], 22, mouse)
-    drawButton(screen, cellColor, cellHover, 120, screenHeight / 3 + 150, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[0][1], 22, mouse)
-    drawButton(screen, cellColor, cellHover, 120, screenHeight / 3 + 300, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[0][2], 22, mouse)
-    drawButton(screen, cellColor, cellHover, 320, screenHeight / 3, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[1][0], 22, mouse)
-    drawButton(screen, cellColor, cellHover, 320, screenHeight / 3 + 150, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[1][1], 22, mouse)
-    drawButton(screen, cellColor, cellHover, 320, screenHeight / 3 + 300, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[1][2], 22, mouse)
-    drawButton(screen, cellColor, cellHover, 500, screenHeight / 3, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[2][0], 22, mouse)
-    drawButton(screen, cellColor, cellHover, 500, screenHeight / 3 + 150, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[2][1], 22, mouse)
-    drawButton(screen, cellColor, cellHover, 500, screenHeight / 3 + 300, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[2][2], 22, mouse)
+    drawButton(screen, cellColor, cellHover, 120, screenHeight / 3, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[0], 22, mouse)
+    drawButton(screen, cellColor, cellHover, 120, screenHeight / 3 + 150, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[3], 22, mouse)
+    drawButton(screen, cellColor, cellHover, 120, screenHeight / 3 + 300, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[6], 22, mouse)
+    drawButton(screen, cellColor, cellHover, 320, screenHeight / 3, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[1], 22, mouse)
+    drawButton(screen, cellColor, cellHover, 320, screenHeight / 3 + 150, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[4], 22, mouse)
+    drawButton(screen, cellColor, cellHover, 320, screenHeight / 3 + 300, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[7], 22, mouse)
+    drawButton(screen, cellColor, cellHover, 500, screenHeight / 3, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[2], 22, mouse)
+    drawButton(screen, cellColor, cellHover, 500, screenHeight / 3 + 150, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[5], 22, mouse)
+    drawButton(screen, cellColor, cellHover, 500, screenHeight / 3 + 300, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[8], 22, mouse)
 
 def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
     runTTT = True
-
-    print(myBoard)
-
-    global prompt, wins, losses, ties, state
+    global prompt, wins, losses, ties, state, winner
 
     # Load data regarding wins, losses and ties from gamelogs file
     try:
@@ -228,8 +266,8 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
     DIMGREY = (105, 105, 105)
 
     tttButtons = {
-        "BACK" : ((screenWidth / 2) + 215, (screenHeight / 2) - 300),
-        "AGAIN" : ((screenWidth / 2) - 70, (screenHeight / 2) + 200),
+        "BACK" : (10, 20),
+        "AGAIN" : ((screenWidth / 2) - 130, 40),
         "GRIDCELL" : (90, 90),
     }
 
@@ -281,8 +319,16 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
             # Mouse click detection
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Checks if mouse clicked ROCK button
-                state = "player"
-                playerMove(mouse, cellPos)
+                if (not playAgain):
+                    playerMove(mouse, cellPos)
+                    
+                if ((tttButtons['BACK'][0] <= mouse[0] <= (tttButtons['BACK'][0] + 300)) and (tttButtons['BACK'][1] <= mouse[1] <= (tttButtons['BACK'][1] + 40))):
+                    runTTT = False
+                    saveScores()
+                if ((tttButtons['AGAIN'][0] <= mouse[0] <= (tttButtons['AGAIN'][0] + 140)) and (tttButtons['AGAIN'][1] <= mouse[1] <= (tttButtons['AGAIN'][1] + 42))):
+                    playAgain = False
+                    prompt = systemMessages['INITIAL']
+                    resetGame()
 
         # Fills screen with specific color
         screen.fill(DIMGREY)
@@ -290,10 +336,10 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
         # Updates mouse cursor position and stores coordinates in a tuple
         mouse = pygame.mouse.get_pos()
 
-        if (not playAgain):
-            drawGrid(screen, BLACK, screenWidth, screenHeight, WHITE, GREY, tttButtons, mouse)
-        else:
-            drawSystemMessages(screen, replay, 100, 150)
+        drawGrid(screen, BLACK, screenWidth, screenHeight, WHITE, GREY, tttButtons, mouse)
+
+        if (playAgain):
+            drawSystemMessages(screen, replay, 60, 150)
             drawButton(screen, WHITE, GREY, tttButtons['AGAIN'][0], tttButtons['AGAIN'][1], 150, 42, tttText['AGAIN'], 5, mouse)
 
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -301,15 +347,35 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
                     playAgain = False
                     prompt = systemMessages['INITIAL']
 
-        # Check win conditions
-        winCheck(screen, cellPos)
+
+        # CPU move if turn
+        if (not playAgain and winner == None):
+            cpuMove()
+        
+        # Check win conditions after cpu move
+        winCheck(screen, screenWidth, screenHeight)
+
+        # End game if win achieved
+        if (not winner == None):
+            playAgain = True
 
         # Prompts on screen
         drawSystemMessages(screen, prompt, 60, 100)
 
         # Scoreboard
-        drawScore("TTT", screen, WHITE, 450, 70, 250, 130, scoreWins, scoreLosses, scoreTies, 10)
+        drawScore("TTT", screen, WHITE, 450, 20, 250, 130, scoreWins, scoreLosses, scoreTies, 10)
 
+        # Draws BACK button
+        drawButton(screen, WHITE, GREY, tttButtons['BACK'][0], tttButtons['BACK'][1], 140, 42, tttText['BACK'], 35, mouse)
+
+        movesLeft()
+
+        if (winner == "player"):
+            wins += 1
+        elif (winner == "cpu"):
+            losses += 1
+        elif (winner == "tie"):
+            ties += 1
 
         # Updates game frames
         pygame.display.update()
