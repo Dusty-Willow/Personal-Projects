@@ -110,20 +110,20 @@ def runRPS(screen, mouse, screenWidth, screenHeight, myFont):
             # Mouse click detection
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Checks if mouse clicked ROCK button
-                if ((rpsButtons['ROCK'][0] <= mouse[0] <= (rpsButtons['ROCK'][0] + 300)) and (rpsButtons['ROCK'][1] <= mouse[1] <= (rpsButtons['ROCK'][1] + 40))):
+                if ((rpsButtons['ROCK'][0] <= mouse[0] <= (rpsButtons['ROCK'][0] + 140)) and (rpsButtons['ROCK'][1] <= mouse[1] <= (rpsButtons['ROCK'][1] + 42))):
                     playGame("Rock", systemMessages, myFont)
                     playAgain = True
                     data['RPS']['Wins'] = wins
                 # Checks if mouse clicked PAPER button
-                elif ((rpsButtons['PAPER'][0] <= mouse[0] <= (rpsButtons['PAPER'][0] + 300)) and (rpsButtons['PAPER'][1] <= mouse[1] <= (rpsButtons['PAPER'][1] + 40))):
+                elif ((rpsButtons['PAPER'][0] <= mouse[0] <= (rpsButtons['PAPER'][0] + 140)) and (rpsButtons['PAPER'][1] <= mouse[1] <= (rpsButtons['PAPER'][1] + 42))):
                     playGame("Paper", systemMessages, myFont)
                     playAgain = True
                 # Checks if mouse clicked Scissors button
-                elif ((rpsButtons['SCISSORS'][0] <= mouse[0] <= (rpsButtons['SCISSORS'][0] + 300)) and (rpsButtons['SCISSORS'][1] <= mouse[1] <= (rpsButtons['SCISSORS'][1] + 40))):
+                elif ((rpsButtons['SCISSORS'][0] <= mouse[0] <= (rpsButtons['SCISSORS'][0] + 140)) and (rpsButtons['SCISSORS'][1] <= mouse[1] <= (rpsButtons['SCISSORS'][1] + 42))):
                     playGame("Scissors", systemMessages, myFont)
                     playAgain = True
                 # Checks if mouse clicked BACK button
-                elif ((rpsButtons['BACK'][0] <= mouse[0] <= (rpsButtons['BACK'][0] + 300)) and (rpsButtons['BACK'][1] <= mouse[1] <= (rpsButtons['BACK'][1] + 40))):
+                elif ((rpsButtons['BACK'][0] <= mouse[0] <= (rpsButtons['BACK'][0] + 140)) and (rpsButtons['BACK'][1] <= mouse[1] <= (rpsButtons['BACK'][1] + 42))):
                     runRPS = False
                     saveScores()
 

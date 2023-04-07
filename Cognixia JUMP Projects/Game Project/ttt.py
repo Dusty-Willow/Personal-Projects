@@ -12,7 +12,7 @@ prompt = ""
 gameWon = False
 state = "player"
 winner = None
-winAchieved = None
+incrementScore = False
 
 pygame.init()
 dummyBoard = ["IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE"]
@@ -74,10 +74,10 @@ def playerMove(mouse, cellPositions):
 
 def cpuMove():
     global state, cpuMoves
-    # time.sleep(2)
-    cpuChoice = random.choice(cpuMoves)
+    # time.sleep(2)        
 
-    if (state == "cpu"):
+    if (state == "cpu" and bool(cpuMoves)):
+        cpuChoice = random.choice(cpuMoves)
         match cpuChoice:
             case 1:
                 placeXO("O", 0)
@@ -118,17 +118,19 @@ def cpuMove():
     
     state = "player"
 
-def winCheck(screen, screenWidth, screenHeight):
-    global dummyBoard, winner, winAchieved
+def winCheck(screen, screenHeight):
+    global dummyBoard, winner, incrementScore
     RED = (255, 0, 0)
 
     # Check Row Victory
     for row in range(0, 9, 3):
         if((dummyBoard[row] == dummyBoard[row + 1] == dummyBoard[row + 2]) and not (dummyBoard[row] == "IGNORE")):
 
-            if (dummyBoard[row] == "X"):
+            if (dummyBoard[row] == "X" and winner == None):
+                incrementScore = True
                 winner = "Player"
-            elif (dummyBoard[row] == "O"):
+            elif (dummyBoard[row] == "O" and winner == None):
+                incrementScore = True
                 winner = "CPU"
 
             match row:
@@ -143,9 +145,11 @@ def winCheck(screen, screenWidth, screenHeight):
     for col in range(0, 3):
         if((dummyBoard[col] == dummyBoard[col + 3] == dummyBoard[col + 6]) and not (dummyBoard[col] == "IGNORE")):
 
-            if (dummyBoard[col] == "X"):
+            if (dummyBoard[col] == "X" and winner == None):
+                incrementScore = True
                 winner = "Player"
-            elif (dummyBoard[col] == "O"):
+            elif (dummyBoard[col] == "O" and winner == None):
+                incrementScore = True
                 winner = "CPU"
 
             match col:
@@ -158,9 +162,11 @@ def winCheck(screen, screenWidth, screenHeight):
 
         if((dummyBoard[0] == dummyBoard[4] == dummyBoard[8]) and not (dummyBoard[0] == "IGNORE")):
             
-            if (dummyBoard[0] == "X"):
+            if (dummyBoard[0] == "X" and winner == None):
+                incrementScore = True
                 winner = "Player"
-            elif (dummyBoard[0] == "O"):
+            elif (dummyBoard[0] == "O" and winner == None):
+                incrementScore = True
                 winner = "CPU"
 
             pygame.draw.line(screen, RED, (120 - 35, screenHeight / 3 - 30), (120 + 30 + 380 + 95, screenHeight / 3 + 300 + 110), 7)        
@@ -172,18 +178,24 @@ def winCheck(screen, screenWidth, screenHeight):
             elif (dummyBoard[2] == "O"):
                 winner = "CPU"
 
-            pygame.draw.line(screen, RED, (120 + 470 + 35, screenHeight / 3 - 30), (120 - 35, screenHeight / 3 + 300 + 110), 7)        
+            pygame.draw.line(screen, RED, (120 + 470 + 35, screenHeight / 3 - 30), (120 - 35, screenHeight / 3 + 300 + 110), 7)   
+
+    movesLeft()
 
 def movesLeft():
+    global cpuMoves, playerMoves, winner, incrementScore
     if (bool(cpuMoves) == False and bool(playerMoves) == False and winner == None):
+        incrementScore = True
         winner = "tie"
 
-def resetGame():
+def resetGame(string):
+    global dummyBoard, myBoard, cpuMoves, playerMoves, prompt, winner
+    winner = None
+    prompt = string
     dummyBoard = ["IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE"]
     myBoard = ["IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE"]
     cpuMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     playerMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
 
 def placeXO(XO, position):
     global myBoard, dummyBoard
@@ -246,7 +258,7 @@ def drawGrid(screen, lineColor, screenWidth, screenHeight, cellColor, cellHover,
 
 def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
     runTTT = True
-    global prompt, wins, losses, ties, state, winner
+    global prompt, wins, losses, ties, state, winner, incrementScore
 
     # Load data regarding wins, losses and ties from gamelogs file
     try:
@@ -305,6 +317,8 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
     
     playAgain = False
 
+    resetGame(systemMessages["INITIAL"])
+
     while runTTT:
         scoreWins = myFont.render(f"Wins: {wins}", True, BLACK)
         scoreLosses = myFont.render(f"Losses: {losses}", True, BLACK)
@@ -321,15 +335,18 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
                 # Checks if mouse clicked ROCK button
                 if (not playAgain):
                     playerMove(mouse, cellPos)
-                    
-                if ((tttButtons['BACK'][0] <= mouse[0] <= (tttButtons['BACK'][0] + 300)) and (tttButtons['BACK'][1] <= mouse[1] <= (tttButtons['BACK'][1] + 40))):
+
+                    # Check win conditions after cpu move
+                    winCheck(screen, screenHeight)                    
+                if ((tttButtons['BACK'][0] <= mouse[0] <= (tttButtons['BACK'][0] + 150)) and (tttButtons['BACK'][1] <= mouse[1] <= (tttButtons['BACK'][1] + 42)) and not playAgain):
                     runTTT = False
                     saveScores()
-                if ((tttButtons['AGAIN'][0] <= mouse[0] <= (tttButtons['AGAIN'][0] + 140)) and (tttButtons['AGAIN'][1] <= mouse[1] <= (tttButtons['AGAIN'][1] + 42))):
+                elif ((tttButtons['AGAIN'][0] <= mouse[0] <= (tttButtons['AGAIN'][0] + 140)) and (tttButtons['AGAIN'][1] <= mouse[1] <= (tttButtons['AGAIN'][1] + 42)) and playAgain):
                     playAgain = False
                     prompt = systemMessages['INITIAL']
-                    resetGame()
-
+                    resetGame(systemMessages["INITIAL"])
+            
+            
         # Fills screen with specific color
         screen.fill(DIMGREY)
         
@@ -338,26 +355,21 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
 
         drawGrid(screen, BLACK, screenWidth, screenHeight, WHITE, GREY, tttButtons, mouse)
 
-        if (playAgain):
-            drawSystemMessages(screen, replay, 60, 150)
-            drawButton(screen, WHITE, GREY, tttButtons['AGAIN'][0], tttButtons['AGAIN'][1], 150, 42, tttText['AGAIN'], 5, mouse)
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if ((tttButtons['AGAIN'][0] <= mouse[0] <= (tttButtons['AGAIN'][0] + 300)) and (tttButtons['AGAIN'][1] <= mouse[1] <= (tttButtons['AGAIN'][1] + 40))):
-                    playAgain = False
-                    prompt = systemMessages['INITIAL']
-
-
         # CPU move if turn
         if (not playAgain and winner == None):
             cpuMove()
-        
-        # Check win conditions after cpu move
-        winCheck(screen, screenWidth, screenHeight)
 
+        # Check win conditions after cpu move
+        winCheck(screen, screenHeight)
+        
+        
         # End game if win achieved
         if (not winner == None):
             playAgain = True
+
+        if (playAgain):
+            drawSystemMessages(screen, replay, 60, 150)
+            drawButton(screen, WHITE, GREY, tttButtons['AGAIN'][0], tttButtons['AGAIN'][1], 150, 42, tttText['AGAIN'], 5, mouse)
 
         # Prompts on screen
         drawSystemMessages(screen, prompt, 60, 100)
@@ -365,17 +377,23 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
         # Scoreboard
         drawScore("TTT", screen, WHITE, 450, 20, 250, 130, scoreWins, scoreLosses, scoreTies, 10)
 
-        # Draws BACK button
-        drawButton(screen, WHITE, GREY, tttButtons['BACK'][0], tttButtons['BACK'][1], 140, 42, tttText['BACK'], 35, mouse)
+        # Draws BACK button if game not completed
+        if (not playAgain):
+            drawButton(screen, WHITE, GREY, tttButtons['BACK'][0], tttButtons['BACK'][1], 140, 42, tttText['BACK'], 35, mouse)
 
-        movesLeft()
+        # movesLeft()
+        if (incrementScore):
+            if (winner == "Player"):
+                prompt = systemMessages["VICTORY"]
+                wins += 1
+            elif (winner == "CPU"):
+                prompt = systemMessages["LOSS"]
+                losses += 1
+            elif (winner == "tie"):
+                prompt = systemMessages["TIE"]
+                ties += 1
 
-        if (winner == "player"):
-            wins += 1
-        elif (winner == "cpu"):
-            losses += 1
-        elif (winner == "tie"):
-            ties += 1
+            incrementScore = False
 
         # Updates game frames
         pygame.display.update()
