@@ -1,1 +1,1 @@
-Simple game application developed using Python, as well as the Pygame Module for GUI. The application uses a JSON file as a means of keeping track of player score for each type of game being played.
+Simple game application developed using Python, as well as the Pygame Module for GUI. The application uses a JSON file as a means of keeping track of player score for each type of game being played. Currently there are two games implemented. The first is Rock, Paper, Scissors and the second is Tic Tac Toe.
