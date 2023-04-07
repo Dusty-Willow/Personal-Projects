@@ -7,7 +7,8 @@ def drawButton(surface, basecolor, hovercolor, xOffset, yOffset, buttonWidth, bu
     else:
         pygame.draw.rect(surface, basecolor, [xOffset, yOffset, buttonWidth, buttonHeight])
     # Puts text on buttons
-    surface.blit(text, ((xOffset + textOffset), yOffset))
+    if (not text == "IGNORE"):
+        surface.blit(text, ((xOffset + textOffset), yOffset))
 
 def drawScore(game, surface, basecolor, xOffset, yOffset, boardWidth, boardHeight, text1, text2, text3, textOffset):
     # Draws score for specific game

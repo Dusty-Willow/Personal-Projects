@@ -3,6 +3,7 @@ import sys
 
 from guiUtilities import drawButton
 from rps import runRPS
+from ttt import runTTT
 
 # Constructor initialization
 myPyGame = pygame.init()
@@ -30,11 +31,13 @@ runGame = True
 buttons = {
     "QUIT" : ((screenWidth / 2) - 150, (screenHeight / 2) + 60),
     "RPS" : ((screenWidth / 2) - 150, (screenHeight / 2) + 10),
+    "TTT" : ((screenWidth / 2) - 150, (screenHeight / 2) + -40)
 }
 
 text = {
     "QUIT" : myFont.render('Quit', True, BLACK),
-    "RPS" : myFont.render('Rock Paper Scissors', True, BLACK)
+    "RPS" : myFont.render('Rock Paper Scissors', True, BLACK),
+    "TTT" : myFont.render('Tic Tac Toe', True, BLACK)
 }
 
 while runGame:
@@ -51,13 +54,17 @@ while runGame:
                 pygame.quit()
             elif ((buttons['RPS'][0] <= mouse[0] <= (buttons['RPS'][0] + 300)) and (buttons['RPS'][1] <= mouse[1] <= (buttons['RPS'][1] + 40))):
                 runRPS(WIN, mouse, screenWidth, screenHeight, myFont)
-                # pass
+            elif ((buttons['TTT'][0] <= mouse[0] <= (buttons['TTT'][0] + 300)) and (buttons['TTT'][1] <= mouse[1] <= (buttons['TTT'][1] + 40))):
+                runTTT(WIN, mouse, screenWidth, screenHeight, myFont)
 
     # Fills screen with specific color
     WIN.fill(DIMGREY)
 
     # Updates mouse cursor position and stores coordinates in a tuple
     mouse = pygame.mouse.get_pos()
+
+    # Draws TTT button
+    drawButton(WIN, WHITE, GREY, buttons['TTT'][0], buttons['TTT'][1], 300, 42, text['TTT'], 80, mouse)
 
     # Draws RPS button
     drawButton(WIN, WHITE, GREY, buttons['RPS'][0], buttons['RPS'][1], 300, 42, text['RPS'], 20, mouse)
