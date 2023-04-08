@@ -1,12 +1,12 @@
 {
     "RPS": {
-        "Wins": 5,
-        "Losses": 2,
-        "Ties": 2
+        "Wins": 6,
+        "Losses": 4,
+        "Ties": 5
     },
     "TTT": {
-        "Wins": 8,
-        "Losses": 3,
+        "Wins": 11,
+        "Losses": 5,
         "Ties": 2
     },
     "NGG": {

@@ -5,6 +5,7 @@ import time
 import os
 from guiUtilities import drawButton, drawSystemMessages, drawScore
 
+# Game variables and placeholders
 wins = 0
 losses = 0
 ties = 0
@@ -13,18 +14,20 @@ gameWon = False
 state = "player"
 winner = None
 incrementScore = False
-
 pygame.init()
+
+# Board variables and possible moves for Player and CPU
 dummyBoard = ["IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE"]
 myBoard = ["IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE", "IGNORE"]
 cpuMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 playerMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 xoFont = pygame.font.SysFont('arial', 80)
 
-
+# Function to register Player moves
 def playerMove(mouse, cellPositions):
     global state, myBoard, cpuMoves, playerMoves
     
+    # Checks to see which grid cell player chooses
     if (state == "player"):
         if ((cellPositions['TOPLEFT'][0] <= mouse[0] <= (cellPositions['TOPLEFT'][0] + 90)) and (cellPositions['TOPLEFT'][1] <= mouse[1] <= (cellPositions['TOPLEFT'][1] + 90)) and myBoard[0] == "IGNORE"):
             placeXO("X", 0)
@@ -72,10 +75,11 @@ def playerMove(mouse, cellPositions):
             playerMoves.remove(9)
             state = "cpu"
 
+# Function to register CPU moves
 def cpuMove():
-    global state, cpuMoves
-    # time.sleep(2)        
+    global state, cpuMoves        
 
+    # Decide what cell CPU chooses
     if (state == "cpu" and bool(cpuMoves)):
         cpuChoice = random.choice(cpuMoves)
         match cpuChoice:
@@ -118,6 +122,7 @@ def cpuMove():
     
     state = "player"
 
+# Function to check if the current game state is indicative of a winner
 def winCheck(screen, screenHeight):
     global dummyBoard, winner, incrementScore
     RED = (255, 0, 0)
@@ -160,6 +165,7 @@ def winCheck(screen, screenHeight):
                 case 2:
                     pygame.draw.line(screen, RED, (120 + 45 + 380, screenHeight / 3 - 50), (120 + 45 + 380, screenHeight / 3 + 300 + 140), 7)        
 
+        # Check diagonal victory from top left to bottom right
         if((dummyBoard[0] == dummyBoard[4] == dummyBoard[8]) and not (dummyBoard[0] == "IGNORE")):
             
             if (dummyBoard[0] == "X" and winner == None):
@@ -171,6 +177,7 @@ def winCheck(screen, screenHeight):
 
             pygame.draw.line(screen, RED, (120 - 35, screenHeight / 3 - 30), (120 + 30 + 380 + 95, screenHeight / 3 + 300 + 110), 7)        
     
+        # Check diagonal victory from top right to bottom left
         if((dummyBoard[2] == dummyBoard[4] == dummyBoard[6]) and not (dummyBoard[2] == "IGNORE")):
             
             if (dummyBoard[2] == "X"):
@@ -180,14 +187,17 @@ def winCheck(screen, screenHeight):
 
             pygame.draw.line(screen, RED, (120 + 470 + 35, screenHeight / 3 - 30), (120 - 35, screenHeight / 3 + 300 + 110), 7)   
 
+    # Check if any moves left for Player or CPU
     movesLeft()
 
+# Function to check if the current game state is indicative of a tie
 def movesLeft():
     global cpuMoves, playerMoves, winner, incrementScore
     if (bool(cpuMoves) == False and bool(playerMoves) == False and winner == None):
         incrementScore = True
         winner = "tie"
 
+# Function to reset game state and variables
 def resetGame(string):
     global dummyBoard, myBoard, cpuMoves, playerMoves, prompt, winner
     winner = None
@@ -197,15 +207,18 @@ def resetGame(string):
     cpuMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     playerMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
+# Function to place X and O on code-based board
 def placeXO(XO, position):
     global myBoard, dummyBoard
 
     dummyBoard[position] = XO
     myBoard[position] = xoFont.render(XO, True, (0,0,0))
 
+# Function to save win, loss and tie count when game is closed or Player returns to menu
 def saveScores():
     global wins, losses, ties
     
+    # Save wins, loss and tie score to gamelogs file
     try:
         with open('gamelogs.json', 'rt') as file:
             data = json.load(file)   
@@ -219,22 +232,7 @@ def saveScores():
     except:
         print("This file doesn't exist.")
 
-def alterPrompt(gameState, systemMessage):
-    global prompt
-
-    if (not gameWon):
-        match gameState:
-            case "playerTurn":
-                prompt = systemMessage['PLAYERTURN']
-            case "cpuTurn":
-                prompt = systemMessage['CPUTURN']
-            case "playerWon":
-                prompt = systemMessage['VICTORY']
-            case "cpuWon":
-                prompt = systemMessage['LOSS']
-            case "gameTie":
-                prompt = systemMessage['TIE']
-
+# Function to draw Tic Tac Toe grid. This includes X and O based on code-based board 
 def drawGrid(screen, lineColor, screenWidth, screenHeight, cellColor, cellHover, buttons, mouse):
     global myBoard
     # Vertical grid lines
@@ -256,9 +254,13 @@ def drawGrid(screen, lineColor, screenWidth, screenHeight, cellColor, cellHover,
     drawButton(screen, cellColor, cellHover, 500, screenHeight / 3 + 150, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[5], 22, mouse)
     drawButton(screen, cellColor, cellHover, 500, screenHeight / 3 + 300, buttons['GRIDCELL'][0], buttons['GRIDCELL'][1], myBoard[8], 22, mouse)
 
+# Function to instantiate and run Tic Tac Toe game
 def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
     runTTT = True
     global prompt, wins, losses, ties, state, winner, incrementScore
+
+    # Sets window header
+    pygame.display.set_caption("Tic Tac Toe")
 
     # Load data regarding wins, losses and ties from gamelogs file
     try:
@@ -272,22 +274,26 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
         print("This file doesn't exist.")
 
 
+    # Color codes used
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
     GREY = (192, 192, 192)
     DIMGREY = (105, 105, 105)
 
+    # Buttons used and their positions
     tttButtons = {
         "BACK" : (10, 20),
         "AGAIN" : ((screenWidth / 2) - 130, 40),
         "GRIDCELL" : (90, 90),
     }
 
+    # Button text
     tttText = {
         "BACK" : myFont.render('Back', True, BLACK),
         "AGAIN" : myFont.render('Play again!', True, BLACK)
     }
 
+    # Position for each grid cell on screen
     cellPos = {
     "TOPLEFT" : (120, screenHeight / 3),
     "MIDLEFT" : (120, screenHeight / 3 + 150),
@@ -301,7 +307,7 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
 
     }
 
-
+    # Messages to be showed on screen
     systemMessages = {
         "INITIAL" : myFont.render("Let's play Tic Tac Toe.", True, WHITE),
         "PLAYERTURN" : myFont.render("Player turn. Waiting for decisions.", True, WHITE),
@@ -312,19 +318,25 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
         "AGAIN" : myFont.render("Would you like to play again?", True, WHITE)
     }
 
+    # Set up initial prompt message and replay message
     prompt = systemMessages['INITIAL']
     replay = systemMessages['AGAIN']
     
     playAgain = False
 
+    # Reset game state when game first starts
     resetGame(systemMessages["INITIAL"])
 
+    # Start game loop
     while runTTT:
+        # Show score on screen
         scoreWins = myFont.render(f"Wins: {wins}", True, BLACK)
         scoreLosses = myFont.render(f"Losses: {losses}", True, BLACK)
         scoreTies = myFont.render(f"Ties: {ties}", True, BLACK)
 
+        # Check for input events
         for event in pygame.event.get():
+            # Functionality for Player closing out of application entirely
             if event.type == pygame.QUIT:
                 runGame = False
                 pygame.quit()
@@ -332,15 +344,18 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
 
             # Mouse click detection
             if event.type == pygame.MOUSEBUTTONDOWN:
-                # Checks if mouse clicked ROCK button
+                # Functionality for Player clicking gric cells
                 if (not playAgain):
                     playerMove(mouse, cellPos)
 
-                    # Check win conditions after cpu move
-                    winCheck(screen, screenHeight)                    
+                    # Check win conditions after CPU move
+                    winCheck(screen, screenHeight)  
+
+                # Functionality for when BACK button pressed. Ends game loop and returns to main menu screen
                 if ((tttButtons['BACK'][0] <= mouse[0] <= (tttButtons['BACK'][0] + 150)) and (tttButtons['BACK'][1] <= mouse[1] <= (tttButtons['BACK'][1] + 42)) and not playAgain):
                     runTTT = False
                     saveScores()
+                # Functionality for when PLAY AGAIN button pressed. Resets game state and starts game again
                 elif ((tttButtons['AGAIN'][0] <= mouse[0] <= (tttButtons['AGAIN'][0] + 140)) and (tttButtons['AGAIN'][1] <= mouse[1] <= (tttButtons['AGAIN'][1] + 42)) and playAgain):
                     playAgain = False
                     prompt = systemMessages['INITIAL']
@@ -353,13 +368,14 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
         # Updates mouse cursor position and stores coordinates in a tuple
         mouse = pygame.mouse.get_pos()
 
+        # Draws game grid
         drawGrid(screen, BLACK, screenWidth, screenHeight, WHITE, GREY, tttButtons, mouse)
 
         # CPU move if turn
         if (not playAgain and winner == None):
             cpuMove()
 
-        # Check win conditions after cpu move
+        # Check win conditions after CPU move
         winCheck(screen, screenHeight)
         
         
@@ -367,21 +383,22 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
         if (not winner == None):
             playAgain = True
 
+        # Display game end screen with PLAY AGAIN button
         if (playAgain):
             drawSystemMessages(screen, replay, 60, 150)
             drawButton(screen, WHITE, GREY, tttButtons['AGAIN'][0], tttButtons['AGAIN'][1], 150, 42, tttText['AGAIN'], 5, mouse)
 
-        # Prompts on screen
+        # Draws Prompt on screen
         drawSystemMessages(screen, prompt, 60, 100)
 
-        # Scoreboard
+        # Draws Scoreboard on screen
         drawScore("TTT", screen, WHITE, 450, 20, 250, 130, scoreWins, scoreLosses, scoreTies, 10)
 
-        # Draws BACK button if game not completed
+        # Draws BACK button on screen if game not completed
         if (not playAgain):
             drawButton(screen, WHITE, GREY, tttButtons['BACK'][0], tttButtons['BACK'][1], 140, 42, tttText['BACK'], 35, mouse)
 
-        # movesLeft()
+        # Alters score values based on result of game
         if (incrementScore):
             if (winner == "Player"):
                 prompt = systemMessages["VICTORY"]
@@ -397,6 +414,3 @@ def runTTT(screen, mouse, screenWidth, screenHeight, myFont):
 
         # Updates game frames
         pygame.display.update()
-
-
-
