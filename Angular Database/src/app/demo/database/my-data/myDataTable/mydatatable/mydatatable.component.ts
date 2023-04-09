@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MyDataService } from '../../my-data.service';
-import { ActivatedRoute } from '@angular/router';
-import { pluck } from 'rxjs';
+import { MyDataTable } from '../../my-data';
 
 @Component({
   selector: 'app-mydatatable',
@@ -10,18 +8,13 @@ import { pluck } from 'rxjs';
 })
 export class MydatatableComponent implements OnInit {
 
-  @Input() entryID : string;
-  @Input() postID : string;
+  @Input() myData : MyDataTable[] = [];
+  @Input() entryID : number | null;
+  @Input() postID : number | null;
   @Input() name : string;
   @Input() email : string;
 
-  data$ = this.myDataService.getData();
-
-  dataSegment$ = this.activatedRoute.data.pipe(
-    pluck('data')
-  )
-
-  constructor(private myDataService: MyDataService, private activatedRoute: ActivatedRoute) {}
+  constructor() {}
 
   ngOnInit(): void {
       

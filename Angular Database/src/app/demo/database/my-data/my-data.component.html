@@ -11,16 +11,16 @@
                 <ng-template ngbPanelContent>
                   <div class="form-group row">
                     <div class="col-sm-3">
-                      <input type="text" class="form-control" placeholder="Filter by entry" id="inlineFromEntry" formControl="idFilter">
+                      <input type="number" class="form-control" placeholder="Filter by entry" id="entryIdFilter" [formControl]="entryIdFilter">
                     </div>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control col-sm-9" placeholder="Filter by ID" id="inlineFromID" formControl="postFilter">
+                      <input type="number" class="form-control" placeholder="Filter by ID" id="inlineFromID" [formControl]="postIdFilter">
                     </div>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control" placeholder="Filter by Post Content" formControl="nameFilter">
+                      <input type="text" class="form-control" placeholder="Filter by Post Content" [formControl]="nameFilter">
                     </div>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control" placeholder="Filter by Email" formControl="emailFilter">  
+                      <input type="text" class="form-control" placeholder="Filter by Email" [formControl]="emailFilter">  
                     </div>
                   </div>
                 </ng-template>
@@ -28,9 +28,9 @@
             </ngb-accordion>
           </div>
         </div>
-        <!-- <div *ngIf="data$ | async as data"> -->
-          <app-mydatatable [entryID]="idFilter.value" [postID]="postFilter.value" [name]="emailFilter.value" [email]="nameFilter.value"></app-mydatatable>
-        <!-- </div> -->
+        <div *ngIf="data$ | async as data">
+          <app-mydatatable [myData]="data" [entryID]="entryIdFilter.value" [postID]="postIdFilter.value" [name]="nameFilter.value" [email]="emailFilter.value"></app-mydatatable>
+        </div>
     </app-card>
   </div>
 </div>

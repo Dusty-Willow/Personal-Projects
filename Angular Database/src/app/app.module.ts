@@ -22,6 +22,7 @@ import { NavSearchComponent } from './theme/layout/admin/nav-bar/nav-left/nav-se
 import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { ToggleFullScreenDirective } from './theme/shared/components/full-screen/toggle-full-screen';
 import { HttpClientModule } from '@angular/common/http';
+import { MyArchiveComponent } from './demo/database/my-archive/my-archive/my-archive.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
     NavItemComponent,
     NavSearchComponent,
     ToggleFullScreenDirective,
+    MyArchiveComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,9 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     SharedModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [NavigationItem],
   bootstrap: [AppComponent],

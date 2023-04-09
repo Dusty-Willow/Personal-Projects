@@ -9,7 +9,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of data$ | async | filter : entryID">
+        <tr *ngFor="let data of myData | entryfilter : entryID! | postfilter : postID! | emailfilter : email! | namefilter : name! ">
           <td>{{data.id}}</td>
           <td>{{data.postId}}</td>
           <td>{{data.name}}</td>

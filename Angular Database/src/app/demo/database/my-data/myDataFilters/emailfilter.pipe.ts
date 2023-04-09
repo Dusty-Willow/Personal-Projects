@@ -1,13 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MyData } from '../my-data';
+import { MyDataTable } from '../my-data';
 
 @Pipe({
-  name: 'filter'
+  name: 'emailfilter'
 })
 export class emailFilterPipe implements PipeTransform {
 
-transform(data: MyData[], email: string): MyData[] {
-    return data.filter((data) => data.email.includes(email));
+transform(data: MyDataTable[], email: string): MyDataTable[] {
+    if (!(email === "")) {
+      return data.filter((data) => (data.email.toLowerCase()).includes(email.toLowerCase()));
+    } else {
+      return data
+    }
 }
 
 }

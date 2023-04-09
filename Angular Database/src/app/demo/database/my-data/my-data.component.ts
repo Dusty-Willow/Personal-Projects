@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MyDataService } from './my-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { MydatatableComponent } from './myDataTable/mydatatable/mydatatable.component';
-import { catchError, of } from 'rxjs';
+import { Subject, catchError, of } from 'rxjs';
+import { MyDataTable } from './my-data';
 
 @Component({
   selector: 'app-my-data',
@@ -12,8 +12,20 @@ import { catchError, of } from 'rxjs';
 })
 export class MyDataComponent implements OnInit {
 
-  idFilter = new FormControl("");
-  postFilter = new FormControl("");
+  dataTable : MyDataTable[] = [];
+
+  error$ = new Subject<string>();
+
+  data$ = this.myDataService.getData$.pipe(
+    catchError((err) => {
+      console.log(err);
+      this.error$.next(err.message);
+      return of([]);
+    })
+  );
+
+  entryIdFilter = new FormControl(null);
+  postIdFilter = new FormControl(null);
   nameFilter = new FormControl("");
   emailFilter = new FormControl("");
 
