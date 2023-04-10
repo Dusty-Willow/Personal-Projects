@@ -1,11 +1,11 @@
 {
     "RPS": {
         "Wins": 6,
-        "Losses": 4,
-        "Ties": 5
+        "Losses": 5,
+        "Ties": 6
     },
     "TTT": {
-        "Wins": 11,
+        "Wins": 13,
         "Losses": 5,
         "Ties": 2
     },
