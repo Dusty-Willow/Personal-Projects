@@ -1,0 +1,26 @@
+{
+    "1": {
+        "Name": "Arthur Pendragon",
+        "Age": 250,
+        "Birth": "20-02-1773",
+        "Email": "arthur.pendragon58@camelot.com"
+    },
+    "2": {
+        "Name": "Monkey D. Luffy",
+        "Age": 28,
+        "Birth": "12-09-1994",
+        "Email": "monkey.luffy94@strawhats.com"
+    },
+    "3": {
+        "Name": "Oliver Garden",
+        "Age": 24,
+        "Birth": "15-11-1998",
+        "Email": "oliver.stone98@olivegarden.com"
+    },
+    "4": {
+        "Name": "Susan Storm",
+        "Age": 30,
+        "Birth": "12-05-1993",
+        "Email": "susan.storm93@fanfour.com"
+    }
+}
