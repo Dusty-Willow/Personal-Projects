@@ -43,6 +43,30 @@ const NavigationItems = [
       }
     ]
   },
+  {
+    id: 'employeeManagement',
+    title: 'Employee / Department Management',
+    type: 'group',
+    icon: 'icon-ui',
+    children: [
+      {
+        id: 'employees',
+        title: 'Employees',
+        type: 'item',
+        url: '/employees',
+        icon: '',
+        classes: 'nav-item',
+      },
+      {
+        id: 'departments',
+        title: 'Departments',
+        type: 'item',
+        url: '/departments',
+        icon: '',
+        classes: 'nav-item',
+      }
+    ]
+  },
   // My Code
   {
     id: 'navigation',

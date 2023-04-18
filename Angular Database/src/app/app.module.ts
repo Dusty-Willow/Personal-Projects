@@ -42,6 +42,7 @@ import { MyArchiveComponent } from './demo/database/my-archive/my-archive/my-arc
     NavSearchComponent,
     ToggleFullScreenDirective,
     MyArchiveComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -52,7 +53,7 @@ import { MyArchiveComponent } from './demo/database/my-archive/my-archive/my-arc
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [NavigationItem],
   bootstrap: [AppComponent],

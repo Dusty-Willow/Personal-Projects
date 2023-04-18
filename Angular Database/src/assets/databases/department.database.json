@@ -1,0 +1,22 @@
+[
+    {
+        "Department Name": "Engineering",
+        "Employee Number": 3,
+        "Department Budget": 100000
+    },
+    {
+        "Department Name": "Security",
+        "Employee Number": 2,
+        "Department Budget": 60000
+    },
+    {
+        "Department Name": "Human Resources",
+        "Employee Number": 1,
+        "Department Budget": 80000
+    },
+    {
+        "Department Name": "Janitorial",
+        "Employee Number": 1,
+        "Department Budget": 45000
+    }
+]

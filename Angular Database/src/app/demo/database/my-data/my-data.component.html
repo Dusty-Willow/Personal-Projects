@@ -28,8 +28,17 @@
             </ngb-accordion>
           </div>
         </div>
-        <div *ngIf="data$ | async as data">
-          <app-mydatatable [myData]="data" [entryID]="entryIdFilter.value" [postID]="postIdFilter.value" [name]="nameFilter.value" [email]="emailFilter.value"></app-mydatatable>
+        <div class="form-group col-md-3" style="margin-bottom: 1%;">
+          <select class="form-select" aria-label="select example" required>
+            <option value="25">Display 25 Entries</option>
+            <option value="50">Display 50 Entries</option>
+            <option value="100">Display 100 Entries</option>
+          </select>
+        </div>
+        <div>
+          <div *ngIf="data$ | async as data">
+            <app-mydatatable [myData]="data" [entryID]="entryIdFilter.value" [postID]="postIdFilter.value" [name]="nameFilter.value" [email]="emailFilter.value"></app-mydatatable>
+          </div>
         </div>
     </app-card>
   </div>

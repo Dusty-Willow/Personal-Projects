@@ -28,6 +28,7 @@
     "bootstrap": "^5.2.3",
     "jquery": "^3.6.1",
     "morris.js": "^0.5.0",
+    "ng2-search-filter": "^0.5.1",
     "ngx-color-picker": "^13.0.0",
     "ngx-scrollbar": "^10.0.1",
     "raphael": "^2.3.0",

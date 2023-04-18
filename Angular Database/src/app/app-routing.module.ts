@@ -55,6 +55,10 @@ const routes: Routes = [
         path: 'data',
         loadChildren: () => import('./demo/database/my-data/my-data.module').then(m => m.MyDataModule)
       },
+      {
+        path: 'employees',
+        loadChildren: () => import('./demo/employee-management/employees/employees.module').then(m => m.EmployeesModule)
+      }
       // My Code      
     ],
   },
