@@ -12,7 +12,7 @@ import { postIdFilterPipe } from './myDataFilters/postidfilter.pipe';
 import { nameFilterPipe } from './myDataFilters/namefilter.pipe';
 import { emailFilterPipe } from './myDataFilters/emailfilter.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
-// import {MatExpansionModule} from '@angular/material/expansion';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -31,8 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CardModule,
     TablesModule,
     NgbAccordionModule,
-    ReactiveFormsModule
-    // MatExpansionModule,
+    ReactiveFormsModule,
+    NgxPaginationModule
   ]
 })
 export class MyDataModule { }

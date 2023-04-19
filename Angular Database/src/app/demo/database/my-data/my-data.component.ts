@@ -29,6 +29,12 @@ export class MyDataComponent implements OnInit {
   nameFilter = new FormControl("");
   emailFilter = new FormControl("");
 
+  entriesDisplayed: number = 5;
+
+  onSelected(value : string): void {
+    this.entriesDisplayed = parseInt(value);
+  }
+
   constructor(private myDataService: MyDataService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {

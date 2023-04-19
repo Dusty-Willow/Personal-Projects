@@ -52,7 +52,7 @@
         "Employment Date": "02-01-2002",
         "Department": "Human Resources",
         "Salary": 100000,
-        "Email": "Maka.Loren965@company.com"
+        "Email": "maka.loren965@company.com"
     },
     {
         "First Name": "Maka",
@@ -63,7 +63,7 @@
         "Employment Date": "06-05-2002",
         "Department": "Engineering",
         "Salary": 75000,
-        "Email": "Maka.Cajun906@company.com"
+        "Email": "maka.cajun906@company.com"
     },
     {
         "First Name": "Steven",
@@ -74,6 +74,17 @@
         "Employment Date": "19-12-1995",
         "Department": "Security",
         "Salary": 80000,
-        "Email": "Steven.Strange847@company.com"
+        "Email": "steven.strange847@company.com"
+    },
+    {
+        "First Name": "Bob",
+        "Last Name": "Ross",
+        "Age": 55,
+        "Birth": "19-10-1978",
+        "Employee ID": 8,
+        "Employment Date": "10-11-1995",
+        "Department": "Design",
+        "Salary": 75000,
+        "Email": "bob.ross788@company.com"
     }
 ]

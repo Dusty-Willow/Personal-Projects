@@ -14,6 +14,9 @@ export class MydatatableComponent implements OnInit {
   @Input() name : string;
   @Input() email : string;
 
+  @Input() noOfItems: number = 5;
+  page : number = 1;
+
   constructor() {}
 
   ngOnInit(): void {

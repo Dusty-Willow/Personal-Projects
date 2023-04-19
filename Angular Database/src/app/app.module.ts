@@ -23,6 +23,7 @@ import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { ToggleFullScreenDirective } from './theme/shared/components/full-screen/toggle-full-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { MyArchiveComponent } from './demo/database/my-archive/my-archive/my-archive.component';
+import { Ng2OrderModule } from 'ng2-order-pipe';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { MyArchiveComponent } from './demo/database/my-archive/my-archive/my-arc
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    Ng2OrderModule
   ],
   providers: [NavigationItem],
   bootstrap: [AppComponent],

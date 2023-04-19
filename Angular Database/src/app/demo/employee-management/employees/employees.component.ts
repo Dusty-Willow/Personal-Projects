@@ -25,8 +25,7 @@ export class EmployeesComponent implements OnInit {
   )
 
   currentPage: number = 1
-  entriesDisplayed: number;
-  // totalEntries: number = this.employeeData$;
+  entriesDisplayed: number = 5;
 
   onSelected(value : string): void {
     this.entriesDisplayed = parseInt(value);
@@ -37,7 +36,7 @@ export class EmployeesComponent implements OnInit {
     this.currentPage = page;
   }
 
-  multiFilter = new FormControl(null);
+  multiFilter = new FormControl("");
 
   constructor(private myEmployeeService: EmployeeService, private activatedRoute: ActivatedRoute) {}
 

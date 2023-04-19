@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MultifilterPipe } from '../filters/multifilter.pipe';
 import { FiltertextparserPipe } from '../filters/filtertextparser.pipe';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -30,6 +32,8 @@ import { PaginationComponent } from '../pagination/pagination.component';
     TablesModule,
     NgbAccordionModule,
     ReactiveFormsModule,
+    Ng2OrderModule,
+    NgxPaginationModule
   ]
 })
 export class EmployeesModule { }

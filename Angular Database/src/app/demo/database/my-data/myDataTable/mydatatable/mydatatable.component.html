@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of myData | entryfilter : entryID! | postfilter : postID! | emailfilter : email! | namefilter : name! ">
+        <tr *ngFor="let data of myData | entryfilter : entryID! | postfilter : postID! | emailfilter : email! | namefilter : name! | paginate : {itemsPerPage: noOfItems, currentPage: page}">
           <td>{{data.id}}</td>
           <td>{{data.postId}}</td>
           <td>{{data.name}}</td>
@@ -19,4 +19,5 @@
         </tr>
       </tbody>
     </table>
+    <pagination-controls class="pagination justify-content-center" (pageChange)="page = $event"></pagination-controls>
   </div>

@@ -3,19 +3,19 @@
       <thead>
         <tr class="table-primary">
           <th>Edit/Remove</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Age</th>
+          <th (click)="sort('First Name')">First Name&nbsp;<i class="fa fa-sort"></i></th>
+          <th (click)="sort('Last Name')">Last Name&nbsp;<i class="fa fa-sort"></i></th>
+          <th (click)="sort('Age')">Age&nbsp;<i class="fa fa-sort"></i></th>
           <th>Date of Birth</th>
-          <th>Employee ID</th>
+          <th (click)="sort('Employee ID')">Employee ID&nbsp;<i class="fa fa-sort"></i></th>
           <th>Date of Employment</th>
-          <th>Department</th>
-          <th>Salary</th>
-          <th>Email</th>
+          <th (click)="sort('Department')">Department&nbsp;<i class="fa fa-sort"></i></th>
+          <th (click)="sort('Salary')">Salary&nbsp;<i class="fa fa-sort"></i></th>
+          <th (click)="sort('Email')">Email&nbsp;<i class="fa fa-sort"></i></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let employee of myEmployees | multifilter: (multiFilter!)">
+        <tr *ngFor="let employee of myEmployees | multifilter: (multiFilter!) | orderBy: key : reverse | paginate: {itemsPerPage: noOfItems, currentPage: page}">
           <td><button type="button" class="btn btn-glow-dark btn-dark" title="btn btn-glow-dark btn-dark">Update</button></td>
           <td>{{employee["First Name"]}}</td>
           <td>{{employee["Last Name"]}}</td>
@@ -29,4 +29,5 @@
         </tr>
       </tbody>
     </table>
+    <pagination-controls class="pagination justify-content-center" (pageChange)="page = $event"></pagination-controls>
   </div>

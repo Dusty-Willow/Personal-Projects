@@ -11,6 +11,8 @@ export class EmployeeListComponent implements OnInit {
 
   @Input() myEmployees : Employee[] = [];
   @Input() multiFilter : string | null;
+  @Input() noOfItems : number = 5;
+  page : number = 1;
 
   // @ViewChild(MatPaginator)
 
@@ -18,6 +20,13 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit(): void {
       
+  }
+
+  key = 'id';
+  reverse : boolean = false;
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 
 }
