@@ -16,7 +16,15 @@
       </thead>
       <tbody>
         <tr *ngFor="let employee of myEmployees | multifilter: (multiFilter!) | orderBy: key : reverse | paginate: {itemsPerPage: noOfItems, currentPage: page}">
-          <td><button type="button" class="btn btn-glow-dark btn-dark" title="btn btn-glow-dark btn-dark">Update</button></td>
+          <td>
+            <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'">
+              <button type="button" ngbDropdownToggle class="btn btn-glow-dark btn-dark">Update</button>
+              <div ngbDropdownMenu>
+                <a class="dropdown-item" href="javascript:">Edit</a>
+                <a class="dropdown-item" href="javascript:">Delete</a>
+              </div>
+            </div>
+          </td>
           <td>{{employee["First Name"]}}</td>
           <td>{{employee["Last Name"]}}</td>
           <td>{{employee["Age"]}}</td>

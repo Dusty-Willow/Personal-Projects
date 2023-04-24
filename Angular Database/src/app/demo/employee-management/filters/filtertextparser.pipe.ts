@@ -7,8 +7,13 @@ export class FiltertextparserPipe implements PipeTransform {
 
   transform(myInput: string): string[] {
     if (myInput == "" || myInput == null) return []
+    var result: string[] = [];
     console.log(myInput.toLowerCase().split(" "));
-    return myInput.toLowerCase().split(" ");
+    result = myInput.toLowerCase().split(" ");
+    result.forEach((element) => {
+      element.replace(/_/g, " ");
+    });
+    return result;
   }
 
 }
