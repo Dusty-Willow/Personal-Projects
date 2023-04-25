@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let employee of myEmployees | multifilter: (multiFilter!) | orderBy: key : reverse | paginate: {itemsPerPage: noOfItems, currentPage: page}">
+        <tr *ngFor="let employee of myEmployees | multifilter: (multiFilter! | filtertextparser) | orderBy: key : reverse | paginate: {itemsPerPage: noOfItems, currentPage: page}">
           <td>
             <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'">
               <button type="button" ngbDropdownToggle class="btn btn-glow-dark btn-dark">Update</button>
