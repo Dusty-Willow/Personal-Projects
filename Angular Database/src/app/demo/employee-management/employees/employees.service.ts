@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { shareReplay } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
 import { Employee } from './employees';
 
 @Injectable({
@@ -25,6 +25,14 @@ export class EmployeeService {
     getEmployees() {
         return this.http.get<Employee[]>(this._employeesJsonURL);
     }
+
+    addEmployee(employee: Employee): Observable<Employee[]> {
+      return this.http.post<Employee[]>(this._employeesJsonURL, employee);
+    }
+
+    // deleteEmployee(id: number): Observable<unknown> {
+    //   const url = ${this._employeesJsonURL}/${}
+    // }
 
     // getDepartments() {
     //     return this.http.get<Department[]>(this._departmentsJsonURL);

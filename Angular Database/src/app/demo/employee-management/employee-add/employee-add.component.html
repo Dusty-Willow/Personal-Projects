@@ -1,0 +1,40 @@
+<app-card cardTitle="Adding Employee" [options]="false" blockClass="table-border-style">
+    <div *ngIf="successMessage !== ''" class="alert alert-success">
+        {{successMessage}}
+    </div>
+    <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm)">
+        <div>
+            <button class="btn btn-glow-dark btn-dark" routerLink="/employees">Back</button>
+        </div>
+        <div class="form-group">
+            <input [ngModelOptions]="{ updateOn: 'blur' }" required class="form-control" type="text" name="firstName" [(ngModel)]="employee['First Name']" placeholder="First Name"/>
+        </div>
+        <div class="form-group">
+            <input [ngModelOptions]="{ updateOn: 'blur' }" required class="form-control" type="text" name="lastName" [(ngModel)]="employee['Last Name']" placeholder="Last Name"/>
+        </div>
+        <div class="form-group">
+            <input required class="form-control" type="number" name="age" [(ngModel)]="employee['Age']" placeholder="Age"/>
+        </div>
+        <div class="form-group">
+            <input required class="form-control" type="datetime" name="birth" [(ngModel)]="employee['Birth']" placeholder="Birth Date"/>
+        </div>
+        <div class="form-group">
+            <input required class="form-control" type="number" name="employeeId" [(ngModel)]="employee['Employee ID']" placeholder="Employee ID"/>
+        </div>
+        <div class="form-group">
+            <input required class="form-control" type="datetime" name="employmentDate" [(ngModel)]="employee['Employment Date']" placeholder="Employment Date"/>
+        </div>
+        <div class="form-group">
+            <input [ngModelOptions]="{ updateOn: 'blur' }" required class="form-control" type="text" name="department" [(ngModel)]="employee['Department']" placeholder="Department"/>
+        </div>
+        <div class="form-group">
+            <input required class="form-control" type="number" name="salary" [(ngModel)]="employee['Salary']" placeholder="Salary"/>
+        </div>
+        <div class="form-group">
+            <input [ngModelOptions]="{ updateOn: 'blur' }" required class="form-control" type="text" name="email" [(ngModel)]="employee['Email']" placeholder="Email"/>
+        </div>
+        <div>
+            <button [disabled]="employeeForm.invalid" class="btn btn-glow-dark btn-dark" type="submit">Submit</button>
+        </div>
+    </form>
+</app-card>

@@ -24,6 +24,7 @@ import { ToggleFullScreenDirective } from './theme/shared/components/full-screen
 import { HttpClientModule } from '@angular/common/http';
 import { MyArchiveComponent } from './demo/database/my-archive/my-archive/my-archive.component';
 import { Ng2OrderModule } from 'ng2-order-pipe';
+import { EmployeeAddComponent } from './demo/employee-management/employee-add/employee-add.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     NavSearchComponent,
     ToggleFullScreenDirective,
     MyArchiveComponent,
+    EmployeeAddComponent,
     
   ],
   imports: [
