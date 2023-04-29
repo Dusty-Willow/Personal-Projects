@@ -20,8 +20,8 @@
             <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'">
               <button type="button" ngbDropdownToggle class="btn btn-glow-dark btn-dark">Update</button>
               <div ngbDropdownMenu>
-                <a class="dropdown-item" href="javascript:">Edit</a>
-                <a class="dropdown-item" href="javascript:">Delete</a>
+                <a class="dropdown-item" [routerLink]="['edit', employee['Employee ID']]">Edit</a>
+                <a class="dropdown-item" (click)="delete(employee)">Delete</a>
               </div>
             </div>
           </td>

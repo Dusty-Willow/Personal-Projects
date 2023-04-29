@@ -10,16 +10,10 @@ import { NgForm } from '@angular/forms';
 })
 export class EmployeeAddComponent implements OnInit {
 
-  employee: Employee = {
-    firstName: '',
-    lastName: '',
-    age: null,
-    birth: '',
-    employeeId: null,
-    employmentDate: '',
-    department: '',
-    salary: null,
-    email: ''
+  // 
+  
+  employee = {
+    id: null
   }
 
   successMessage: string = "";
@@ -31,21 +25,11 @@ export class EmployeeAddComponent implements OnInit {
   }
 
   addEmployee(employeeForm: NgForm) {
-    console.log("Help me")
+    this.employee.id = this.employee["Employee ID"]
     this.employeeService.addEmployee(this.employee).subscribe((data) => {
       this.successMessage = 'Employee Added to Database.';
-      employeeForm.resetForm({
-        firstName: '',
-        lastName: '',
-        age: null,
-        birth: '',
-        employeeId: null,
-        employmentDate: '',
-        department: '',
-        salary: null,
-        email: ''
-      })
     })
+    console.log(this.employee)
   }
 
 }

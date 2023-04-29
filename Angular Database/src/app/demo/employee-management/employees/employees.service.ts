@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, shareReplay } from 'rxjs';
+import { Observable, map, shareReplay } from 'rxjs';
 import { Employee } from './employees';
 
 @Injectable({
@@ -8,33 +8,43 @@ import { Employee } from './employees';
 })
 export class EmployeeService {
 
-    private _employeesJsonURL = '/assets/databases/employee.database.json'
+    // private _employeesJsonURL = '/assets/databases/employee.database.json'
+    private _employeesJsonURL = 'http://localhost:3000/Employees'
     // private _departmentsJsonURL = '/assets/databases/department.database.json'
 
-    getEmployees$ = this.getEmployees().pipe(
-    shareReplay(1)
-    );
-
-
-    // getDepartments$ = this.getDepartments().pipe(
+    // getEmployees$ = this.getEmployees().pipe(
     // shareReplay(1)
     // );
 
     constructor(private http: HttpClient) { }
 
+    fetchData() {
+      return this.getEmployees().pipe(
+        shareReplay(1)
+      );
+    }
+
     getEmployees() {
-        return this.http.get<Employee[]>(this._employeesJsonURL);
+      return this.http.get<Employee[]>(this._employeesJsonURL);
     }
 
-    addEmployee(employee: Employee): Observable<Employee[]> {
-      return this.http.post<Employee[]>(this._employeesJsonURL, employee);
+    addEmployee(employee: any) {
+      return this.http.post(this._employeesJsonURL, employee);
     }
 
-    // deleteEmployee(id: number): Observable<unknown> {
-    //   const url = ${this._employeesJsonURL}/${}
-    // }
+    deleteEmployee(id: number): Observable<Employee[]> {
+      const url = `${this._employeesJsonURL}/${id}`;
+      console.log(url);
+      return this.http.delete<Employee[]>(url);
+    }
 
-    // getDepartments() {
-    //     return this.http.get<Department[]>(this._departmentsJsonURL);
-    // }
+    isolateEmployee(id: number) {
+      const url = `${this._employeesJsonURL}/${id}`;
+      return this.http.get<Employee>(url).pipe(shareReplay(1));
+    }
+
+    updateEmployee(id: number, employee: any) {
+      const url = `${this._employeesJsonURL}/${id}`;
+      return this.http.put(url, employee);
+    }
 }

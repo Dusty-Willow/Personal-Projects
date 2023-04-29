@@ -57,14 +57,14 @@ const NavigationItems = [
         icon: '',
         classes: 'nav-item',
       },
-      {
-        id: 'departments',
-        title: 'Departments',
-        type: 'item',
-        url: '/departments',
-        icon: '',
-        classes: 'nav-item',
-      }
+      // {
+      //   id: 'departments',
+      //   title: 'Departments',
+      //   type: 'item',
+      //   url: '/departments',
+      //   icon: '',
+      //   classes: 'nav-item',
+      // }
     ]
   },
   // My Code

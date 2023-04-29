@@ -1,5 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Employee } from '../employees/employees';
+import { EmployeeService } from '../employees/employees.service';
+import { EmployeesComponent } from '../employees/employees.component';
 // import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
@@ -16,7 +18,7 @@ export class EmployeeListComponent implements OnInit {
 
   // @ViewChild(MatPaginator)
 
-  constructor() {}
+  constructor(private employeeService: EmployeeService, private empComp: EmployeesComponent) {}
 
   ngOnInit(): void {
       
@@ -29,4 +31,12 @@ export class EmployeeListComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
+  delete(emp: Employee) {
+    if(confirm("Are you sure you wish to delete this employee?")) {
+      this.employeeService.deleteEmployee(emp["Employee ID"]).subscribe();
+      this.empComp.reload();
+    }
+  }
+
+  
 }

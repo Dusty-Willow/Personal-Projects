@@ -1,11 +1,11 @@
-<app-card cardTitle="Adding Employee" [options]="false" blockClass="table-border-style">
+<app-card cardTitle="Editing Employee" [options]="false" blockClass="table-border-style">
     <div *ngIf="successMessage !== ''" class="alert alert-success">
         {{successMessage}}
     </div>
     <div>
         <button class="btn btn-glow-dark btn-dark" routerLink="/employees">Back</button>
     </div>
-    <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm); employeeForm.resetForm()">
+    <form #employeeForm="ngForm" (ngSubmit)="updateEmployee(employeeForm); employeeForm.resetForm()">
         <div class="form-group">
             <input [ngModelOptions]="{ updateOn: 'blur' }" required class="form-control" type="text" name="firstName" [(ngModel)]="employee['First Name']" placeholder="First Name"/>
         </div>
@@ -19,7 +19,7 @@
             <input required class="form-control" type="datetime" name="birth" [(ngModel)]="employee['Birth']" placeholder="Birth Date"/>
         </div>
         <div class="form-group">
-            <input required class="form-control" type="number" name="employeeId" [(ngModel)]="employee['Employee ID']" placeholder="Employee ID"/>
+            <input required [disabled]="!editable" class="form-control" type="number" name="employeeId" [(ngModel)]="employee['Employee ID']" placeholder="{{employee.id}}"/>
         </div>
         <div class="form-group">
             <input required class="form-control" type="datetime" name="employmentDate" [(ngModel)]="employee['Employment Date']" placeholder="Employment Date"/>

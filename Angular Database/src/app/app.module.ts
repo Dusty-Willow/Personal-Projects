@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyArchiveComponent } from './demo/database/my-archive/my-archive/my-archive.component';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { EmployeeAddComponent } from './demo/employee-management/employee-add/employee-add.component';
+import { EmployeeEditComponent } from './demo/employee-management/employee-edit/employee-edit/employee-edit.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { EmployeeAddComponent } from './demo/employee-management/employee-add/em
     ToggleFullScreenDirective,
     MyArchiveComponent,
     EmployeeAddComponent,
+    EmployeeEditComponent,
     
   ],
   imports: [

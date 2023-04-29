@@ -8,7 +8,8 @@
     "build": "ng build",
     "build-prod": "ng build --configuration production --base-href /demos/admin-templates/datta-able/angular/free/",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "server": "ts-node ./server/server.ts"
   },
   "private": false,
   "dependencies": {
@@ -28,6 +29,7 @@
     "angular-morris-js": "^2.0.1",
     "bootstrap": "^5.2.3",
     "jquery": "^3.6.1",
+    "json-server": "^0.17.3",
     "morris.js": "^0.5.0",
     "ng2-order-pipe": "^0.1.5",
     "ng2-search-filter": "^0.5.1",
@@ -37,6 +39,7 @@
     "raphael": "^2.3.0",
     "rxjs": "~7.5.7",
     "screenfull": "^6.0.1",
+    "ts-node": "^10.9.1",
     "tslib": "^2.4.1",
     "zone.js": "~0.12.0"
   },

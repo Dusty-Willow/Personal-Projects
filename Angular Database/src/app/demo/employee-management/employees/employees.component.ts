@@ -16,7 +16,7 @@ export class EmployeesComponent implements OnInit {
 
   error$ = new Subject<string>()
 
-  employeeData$ = this.myEmployeeService.getEmployees$.pipe(
+  employeeData$ = this.myEmployeeService.fetchData().pipe(
     catchError((err) => {
       console.log(err);
       this.error$.next(err.message);
@@ -42,5 +42,15 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     
+  }
+
+  reload() {
+    this.employeeData$ = this.myEmployeeService.fetchData().pipe(
+      catchError((err) => {
+        console.log(err);
+        this.error$.next(err.message);
+        return of([])
+      })
+    )
   }
 }

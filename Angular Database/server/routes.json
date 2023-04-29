@@ -1,0 +1,5 @@
+{
+    "/api/employees": "/Employees",
+    "/api/employees/:employeeId": "/Employees/:employeeId"
+}
+
