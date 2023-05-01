@@ -1,0 +1,40 @@
+<!-- <h1>Welcome to {{hotelName}}!</h1> -->
+<app-header></app-header>
+
+<div [hidden]="hideRooms">
+    Number of Rooms:
+    <div [ngStyle]="{'color' : rooms.availableRooms ? 'purple' : 'red'}" [innerText]="numberOfRooms"></div>
+</div>
+
+<!-- <div *ngIf="selectedRoom">
+    {{selectedRoom | json}};
+</div> -->
+
+<div>
+    <button class="btn btn-success" routerLink="add">Add Room</button>
+</div>
+
+<div>
+    <input type="number" class="form-control" placeholder="Sort rooms by less than or equals to this price." [formControl]="priceFilter">
+</div>
+
+<!-- <h5>
+    Number of Rooms: {{roomsCount$ | async}}
+</h5> -->
+
+<!-- <h4> {{getError$ | async}}</h4> -->
+<!-- <div *ngIf="hideRooms"> -->
+    <div *ngIf="rooms$ | async as rooms">
+        <app-rooms-list [rooms]="rooms" [price]="priceFilter.value" [title]="'Room List'" (selectedRoom)="selectRoom($event)"></app-rooms-list>
+    </div>
+<!-- </div> -->
+
+<!-- <button (click)="toggle()">Toggle</button>
+
+<button (click)="editRoom()">Edit Room 3</button>
+
+<button (click)="deleteRoom()">Delete Room 3</button>
+
+<h3>{{totalBytes}} Bytes Loaded!</h3> -->
+
+<router-outlet></router-outlet>

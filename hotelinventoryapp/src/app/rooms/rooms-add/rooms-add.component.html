@@ -1,0 +1,32 @@
+<div *ngIf="successMessage !== ''" class="alert alert-success">
+    {{successMessage}}
+</div>
+<form #roomsForm="ngForm" (ngSubmit)="AddRoom(roomsForm)">
+    <div class="form-group">
+        <input [ngModelOptions]="{ updateOn: 'blur' }" required class="form-control" type="text" name="roomType" [(ngModel)]="room.roomType" placeholder="Room Type"/>
+    </div>
+    <div class="form-group">
+        <input #roomAmenities="ngModel" required minlength="5" maxlength="50" class="form-control" type="text" name="amenities" [(ngModel)]="room.amenities" placeholder="Amenities"/>
+    </div>
+    <div *ngIf="roomAmenities.errors?.['minlength']" class="alert alert-danger">
+        Amenities should be at least 5 characters long.
+    </div>
+    <div class="form-group">
+        <input required class="form-control" type="number" name="price" [(ngModel)]="room.price" placeholder="Price"/>
+    </div>
+    <div class="form-group">
+        <input required class="form-control" type="text" name="photos" [(ngModel)]="room.photos" placeholder="Photos (Provide Link)"/>
+    </div>
+    <div class="form-group">
+        <input required class="form-control" type="datetime" name="checkinTime" [(ngModel)]="room.checkinTime" placeholder="Check-In Time"/>
+    </div>
+    <div class="form-group">
+        <input required class="form-control" type="datetime" name="checkoutTime" [(ngModel)]="room.checkoutTime" placeholder="Check-Out Time"/>
+    </div>
+    <div class="form-group">
+        <input required min="1" max="5" class="form-control" type="number" name="rating" [(ngModel)]="room.rating" placeholder="Rating"/>
+    </div>
+    <div>
+        <button [disabled]="roomsForm.invalid" class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
